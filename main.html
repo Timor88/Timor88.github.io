@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      body,
+      html,
+      #allmap {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        font-family: "微软雅黑";
+      }
+    </style>
+    <script
+      type="text/javascript"
+      src="https://api.map.baidu.com/api?type=webgl&v=1.0&ak=Tof7RWSEIyb8MY7mX4VBRSGFowEfonhv"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://api.map.baidu.com/library/LuShu/gl/src/LuShu_min.js"
+    ></script>
+    <title>2020中国移民地图</title>
+  </head>
+  <body>
+    <div id="allmap"></div>
+  </body>
+</html>
+<script type="text/javascript">
+  // 随机颜色
+  var getRandomColor = function () {
+    return (
+      "#" +
+      (function (color) {
+        return (color += "0123456789abcdef"[Math.floor(Math.random() * 16)]) &&
+          color.length == 6
+          ? color
+          : arguments.callee(color);
+      })("")
+    );
+  };
+  // 百度地图API功能
+  var map = new BMapGL.Map("allmap");
+  var point = new BMapGL.Point(116.617562, 40.0823);
+  map.centerAndZoom(point, 4);
+  map.enableScrollWheelZoom();
+  map.setMapType(BMAP_EARTH_MAP);
+  var destinations = [
+    new BMapGL.Point(-77.0368707, 38.9071923),
+    new BMapGL.Point(139.7690174, 35.6803997),
+    new BMapGL.Point(-75.6971931, 45.4215296),
+    new BMapGL.Point(149.1300092, -35.2809368),
+    new BMapGL.Point(126.9779692, 37.566535),
+    new BMapGL.Point(103.819836, 1.352083),
+    new BMapGL.Point(12.4963655, 41.9027835),
+    new BMapGL.Point(-0.1277583, 51.5073509),
+    new BMapGL.Point(90.4125181, 23.810332),
+    new BMapGL.Point(-3.7037902, 40.4167754),
+    new BMapGL.Point(2.3522219, 48.856614),
+    new BMapGL.Point(13.404954, 52.5200066),
+    new BMapGL.Point(77.2090212, 28.6139391),
+    new BMapGL.Point(174.7787463, -41.2923814),
+    new BMapGL.Point(100.5017651, 13.7563309),
+    new BMapGL.Point(106.845599, -6.2087634),
+    new BMapGL.Point(4.9041389, 52.3675734),
+    new BMapGL.Point(37.6172999, 55.755826),
+    new BMapGL.Point(28.2292712, -25.7478676),
+    new BMapGL.Point(120.9842195, 14.5995124),
+  ];
+
+  for (let [index, dest] of destinations.entries()) {
+    let path = [new BMapGL.Point(116.617562, 40.0823), dest];
+    var polyline = new BMapGL.Polyline(path, {
+      clip: false,
+      geodesic: true,
+      strokeWeight: (destinations.length - index) / 2,
+      strokeColor: getRandomColor(),
+    });
+    map.addOverlay(polyline);
+  }
+</script>
