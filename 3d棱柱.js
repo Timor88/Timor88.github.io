@@ -86,7 +86,7 @@ map.enableScrollWheelZoom();
 // pris("河南")
 // pris("北京")
 for (i in json){
-    pris(json[i]["省份"],json[i]["gdp"]);
-    console.log(json[i]["省份"])
+    // pris(json[i]["省份"],json[i]["gdp"]);
+    // console.log(json[i]["省份"])
 }
  
